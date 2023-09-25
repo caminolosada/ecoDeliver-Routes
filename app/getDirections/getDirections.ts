@@ -10,7 +10,7 @@ export const apiUrl: string = process.env.OSMR_CONNECTION!;
 
 const getDirections = async (
   coordinates: string[],
-): Promise<ResponseStructure | undefined> => {
+): Promise<ResponseStructure> => {
   try {
     const response = await axios.get<ResponseStructure>(
       `${apiUrl}${coordinates.join(";")}`,
@@ -45,6 +45,8 @@ const getDirections = async (
 
       throw serviceError;
     }
+
+    throw generalError;
   }
 };
 
