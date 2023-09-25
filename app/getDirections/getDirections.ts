@@ -20,26 +20,30 @@ const getDirections = async (
 
     return myDirections;
   } catch (error) {
+    const directionsError = new CustomError(
+      `Bad Request: ${error.message}`,
+      statusCodes.badRequest,
+      `${messages.directionsError}`,
+    );
+
+    const generalError = new CustomError(
+      `Network Error: ${error.message}`,
+      statusCodes.generalError,
+      `${messages.generalError}`,
+    );
+
+    let serviceError = generalError;
+
     if (error instanceof AxiosError) {
       const status = error.response?.status;
-      if (status === 400) {
-        const directionsError = new CustomError(
-          `Bad Request: ${error.message}`,
-          statusCodes.badRequest,
-          `${messages.directionsError}`,
-        );
 
-        debug(chalk.redBright(directionsError));
-        throw directionsError;
-      } else {
-        const generalError = new CustomError(
-          `Network Error: ${error.message}`,
-          statusCodes.generalError,
-          `${messages.generalError}`,
-        );
-        debug(chalk.redBright(generalError));
-        throw generalError;
+      if (status === 400) {
+        serviceError = directionsError;
       }
+
+      debug(chalk.redBright(serviceError));
+
+      throw serviceError;
     }
   }
 };
