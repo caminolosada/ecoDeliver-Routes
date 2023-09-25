@@ -3,6 +3,8 @@ import { debug } from "console";
 import chalk from "chalk";
 import { type ResponseStructure } from "./types";
 import CustomError from "../server/CustomError/CustomError.js";
+import messages from "../server/utils/messages/messages.js";
+import statusCodes from "../server/utils/statusCodes/statusCodes.js";
 
 export const apiUrl: string = process.env.OSMR_CONNECTION!;
 
@@ -22,9 +24,9 @@ const getDirections = async (
       const status = error.response?.status;
       if (status === 400) {
         const directionsError = new CustomError(
-          "Bad Request: Invalid coordinates",
-          400,
-          "Can't get directions, please check the coordinates you have been entered",
+          `Bad Request: ${error.message}`,
+          statusCodes.badRequest,
+          `${messages.directionsError}`,
         );
 
         debug(chalk.redBright(directionsError));
@@ -32,8 +34,8 @@ const getDirections = async (
       } else {
         const generalError = new CustomError(
           `Network Error: ${error.message}`,
-          500,
-          "Network Error",
+          statusCodes.generalError,
+          `${messages.generalError}`,
         );
         debug(chalk.redBright(generalError));
         throw generalError;
