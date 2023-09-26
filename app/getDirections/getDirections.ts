@@ -32,9 +32,8 @@ const getDirections = async (
       `${messages.generalError}`,
     );
 
-    let serviceError = generalError;
-
     if (error instanceof AxiosError) {
+      let serviceError = generalError;
       const status = error.response?.status;
 
       if (status === 400) {

@@ -3,7 +3,7 @@ import createDebug from "debug";
 import chalk from "chalk";
 import getDirections from "./getDirections/getDirections.js";
 import { type ResponseStructure } from "./getDirections/types.js";
-import { routeMock } from "./mocks/routeMock.js";
+import { routeMock } from "./mocks/mocks.js";
 
 const debug = createDebug("ecoDeliver-Routes:root");
 
@@ -23,7 +23,7 @@ if (!osmrConnection) {
   result.waypoints.forEach((waypoint) => {
     debug(
       chalk.blue(
-        `${waypoint.name} (location: ${String(waypoint.location.toString())})`,
+        `${waypoint.name} (location: ${waypoint.location.toString()})`,
       ),
     );
   });
