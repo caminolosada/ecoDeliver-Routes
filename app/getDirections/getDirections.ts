@@ -13,7 +13,9 @@ const getDirections = async (
 ): Promise<ResponseStructure> => {
   try {
     const response = await axios.get<ResponseStructure>(
-      `${apiUrl}${coordinates.join(";")}`,
+      `http://router.project-osrm.org/route/v1/driving/${coordinates.join(
+        ";",
+      )}`,
     );
 
     const myDirections = response.data;

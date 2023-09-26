@@ -1,15 +1,16 @@
-describe("Given a sum function", () => {
-  describe("When it receives the number 5 and 3 as parameters", () => {
-    test("Then it should return the number 8", () => {
-      const expectedResult = 8;
-      const operator1 = 5;
-      const operator2 = 3;
+import { routeMock } from "../mocks/mocks.js";
 
-      const sum = (a: number, b: number): number => a + b;
+import getDirections from "./getDirections.js";
 
-      const result = sum(operator1, operator2);
+describe("Given a getDirections function", () => {
+  describe("When it receives a request with a list of valid coordinates", () => {
+    test("Then it should return an object with the waypoints of the route", async () => {
+      const coordinates = routeMock;
+      const expectedResponse = "waypoints";
 
-      expect(result).toBe(expectedResult);
+      const response = await getDirections(coordinates);
+
+      expect(response).toHaveProperty(expectedResponse);
     });
   });
 });
