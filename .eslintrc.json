@@ -24,7 +24,7 @@
       }
     },
     {
-      "files": ["src/**/models/*.ts"],
+      "files": ["app/mocks/mocks.ts"],
       "rules": { "@typescript-eslint/naming-convention": "off" }
     }
   ],
